@@ -7,6 +7,12 @@
 
     <div>info-age: {{ info.age }}</div>
 
+    <ul>
+      <li v-for="item in list" :key="item.hashId">
+        {{ item.content }}
+      </li>
+    </ul>
+
     <button @click="changeCount">change count</button>
     <button @click="changeInfo">change Info</button>
   </div>
@@ -16,16 +22,20 @@
   import { defineComponent } from "vue";
   import { useCount } from './useCount'
   import { useInfo } from './useInfo'
+  import { useList } from './useList'
 
   export default defineComponent({
     setup() {
         const { count, changeCount } = useCount()
         const { info, changeInfo } = useInfo(count)
+        const { getData: getJokeList,list } = useList()
+        getJokeList();
         return {
             count,
             changeCount,
             info,
-            changeInfo
+            changeInfo,
+            list
         }
     },
   });
